@@ -7,8 +7,8 @@ package com.yha.algorithm.graph.union_find;
  */
 public abstract class UnionFind {
 
-    private int[] id; //分量ID（以触点作为索引）
-    private int count; //分量数量
+    protected int[] id; //分量ID（以触点作为索引）
+    protected int count; //分量数量
 
     public UnionFind(int N){
         //初始化分量ID数组
@@ -51,6 +51,5 @@ public abstract class UnionFind {
      * @param q
      */
     public abstract void union(int p, int q);
-
 
 }
