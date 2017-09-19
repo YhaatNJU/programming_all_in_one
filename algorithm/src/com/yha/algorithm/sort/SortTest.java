@@ -15,6 +15,7 @@ public class SortTest {
 
         InsertSort.sort(a);
 
+        int[] b = {1};
 
 
         Sort.show(a);
