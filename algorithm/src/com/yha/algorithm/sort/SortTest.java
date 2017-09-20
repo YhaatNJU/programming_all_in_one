@@ -13,9 +13,13 @@ public class SortTest {
 
         //SelectSort.sort(a);
 
-        InsertSort.sort(a);
+        //InsertSort.sort(a);
+        
+        //MergeSort.sort2(a);
 
-        int[] b = {1};
+        //ShellSort.sort(a);
+        
+        QuickSort.sort(a);
 
 
         Sort.show(a);
