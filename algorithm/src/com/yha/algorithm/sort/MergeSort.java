@@ -38,7 +38,7 @@ public class MergeSort extends Sort {
             else if (j > high)
                 a[k] = aux[i++];
             else if (less(aux[j], aux[i]))
-                a[k] = aux[j ++];
+                a[k] = aux[j++];
             else
                 a[k] = aux[i++];
     

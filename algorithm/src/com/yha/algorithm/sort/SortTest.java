@@ -19,10 +19,18 @@ public class SortTest {
 
         //ShellSort.sort(a);
         
-        QuickSort.sort(a);
+        //QuickSort.sort(a);
+        //HeapSort.sort(a);
+
+        Integer[] b = {7, 9, 11, 13, 8, 1, 3, 5};
+
+        QuickSort.sort(b);
+        Sort.show(b);
 
 
-        Sort.show(a);
+
+
+        //Sort.show(a);
 
 
     }
