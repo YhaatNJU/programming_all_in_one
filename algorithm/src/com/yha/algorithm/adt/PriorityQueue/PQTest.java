@@ -1,4 +1,4 @@
-package com.yha.algorithm.adt.PriorityQueue;
+package com.yha.algorithm.adt.priorityQueue;
 
 /**
  * @author yha

@@ -1,4 +1,4 @@
-package com.yha.algorithm.graph.union_find;
+package com.yha.algorithm.graph.unionFind;
 
 /**
  * @author yha
