@@ -16,7 +16,7 @@ package com.yha.algorithm.adt.symbolTable;
  *  添加结点后需要把指向根结点的链接变成黑色
  * @create 2017-09-23 10:05
  **/
-public class ReaBlackTreeST<Key extends Comparable<Key>, Value>
+public class RedBlackTreeST<Key extends Comparable<Key>, Value>
         extends OrderedSymbolTable<Key, Value>{
 
     private static final boolean RED = true;
@@ -27,32 +27,118 @@ public class ReaBlackTreeST<Key extends Comparable<Key>, Value>
 
     @Override
     public Key min() {
-        return null;
+        if (root == null)
+            return null;
+        return min(root).key;
+    }
+
+    private Node min(Node x){
+        if (x.left == null)
+            return x;
+        return min(x.left);
     }
 
     @Override
     public Key max() {
-        return null;
+        if (root == null)
+            return null;
+        return max(root).key;
+    }
+
+    private Node max(Node x){
+        if (x.right == null)
+            return x;
+        return max(x.right);
     }
 
     @Override
     public Key floor(Key key) {
-        return null;
+        Node x = floor(root, key);
+        if (x == null)
+            return null;
+        return x.key;
+    }
+
+    private Node floor(Node x, Key key){
+        if (x == null)
+            return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp == 0)
+            return x;
+        if (cmp < 0)
+            return floor(x.left, key);
+        Node t = floor(x.right, key);
+        if (t != null)
+            return t;
+        else
+            return x;
     }
 
     @Override
     public Key ceiling(Key key) {
-        return null;
+        Node x = ceiling(root, key);
+        if (x == null)
+            return null;
+        return x.key;
+    }
+
+    private Node ceiling(Node x, Key key){
+        if (x == null)
+            return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp == 0)
+            return x;
+        if (cmp > 0)
+            return ceiling(x.right, key);
+        Node t = ceiling(x.left, key);
+        if (t != null)
+            return t;
+        else
+            return x;
     }
 
     @Override
     public int rank(Key key) {
-        return 0;
+        return rank(root, key);
+    }
+
+    private int rank(Node x, Key key){
+        //返回以x为根结点的子树中小于x.key的键的数量
+        if (x == null)
+            return 0;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0)
+            return rank(x.left, key);
+        else if (cmp > 0)
+            return 1 + size(x.left) + rank(x.right, key);
+        else
+            return size(x.left);
     }
 
     @Override
     public Key select(int k) {
-        return null;
+        if (root == null)
+            return null;
+        if (k > root.N){
+            return null;
+        }
+        Node node = select(root, k);
+        if (node == null)
+            return null;
+        return node.key;
+    }
+
+    private Node select(Node x, int k){
+        //返回排名为k的结点
+        if (x == null)
+            return null;
+        int t = size(x.left);
+        if (t > k)
+            return select(x.left, k);
+        else if (t < k)
+            return select(x.right, k-t-1);
+        else
+            return x;
     }
 
     @Override
@@ -98,7 +184,21 @@ public class ReaBlackTreeST<Key extends Comparable<Key>, Value>
 
     @Override
     public Value get(Key key) {
-        return null;
+        if (key == null)
+            return null;
+        return get(root, key);
+    }
+
+    private Value get(Node x, Key key){
+        if (x == null)
+            return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0)
+            return get(x.left, key);
+        else if (cmp > 0)
+            return get(x.right, key);
+        else
+            return x.val;
     }
 
     @Override
@@ -107,18 +207,29 @@ public class ReaBlackTreeST<Key extends Comparable<Key>, Value>
     }
 
     @Override
+    public void deleteMin() {
+        super.deleteMin();
+    }
+
+
+    @Override
+    public void deleteMax() {
+        super.deleteMax();
+    }
+
+    @Override
     public boolean contains(Key key) {
-        return false;
+        return get(key) != null;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size() == 0;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size(root);
     }
 
     /**
