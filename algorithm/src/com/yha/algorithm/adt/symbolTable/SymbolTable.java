@@ -62,7 +62,7 @@ public abstract class SymbolTable<Key, Value> {
         Iterator<Key> iterator = keys().iterator();
         while (iterator.hasNext()){
             Key next = iterator.next();
-            System.out.print(next + "->" + get(next) + " ");
+            System.out.print("(" + next + "->" + get(next) + ") ");
 
         }
         System.out.println();

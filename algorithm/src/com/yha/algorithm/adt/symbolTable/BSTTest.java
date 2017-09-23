@@ -9,7 +9,7 @@ public class BSTTest {
 
     public static void main(String[] args){
 
-        BinarySearchTreeST<Integer,String> st = new BinarySearchTreeST<>();
+        RedBlackTreeST<Integer,String> st = new RedBlackTreeST<>();
 
         st.put(3, "M");
         st.put(1, "J");

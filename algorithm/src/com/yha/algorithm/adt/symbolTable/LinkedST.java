@@ -7,7 +7,7 @@ import java.util.Iterator;
  * @decription 无序符号表的链表实现
  * @create 2017-09-22 16:47
  **/
-public class LinkedST<Key extends Comparable<Key>, Value>
+public class LinkedST<Key, Value>
         extends SymbolTable<Key, Value> {
 
     private class Node{

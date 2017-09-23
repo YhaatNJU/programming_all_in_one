@@ -1,6 +1,10 @@
 package com.yha.algorithm.adt.symbolTable;
 
 
+import com.yha.algorithm.adt.queue.Queue;
+
+import java.util.NoSuchElementException;
+
 /**
  * @author yha
  * @decription 红黑树实现的2-3树的符号表
@@ -143,7 +147,24 @@ public class RedBlackTreeST<Key extends Comparable<Key>, Value>
 
     @Override
     public Iterable<Key> keys(Key low, Key high) {
-        return null;
+        if (low == null) throw new IllegalArgumentException("first argument to keys() is null");
+        if (high == null) throw new IllegalArgumentException("second argument to keys() is null");
+
+        Queue<Key> queue = new Queue<Key>();
+        // if (isEmpty() || lo.compareTo(hi) > 0) return queue;
+        keys(root, queue, low, high);
+        return queue;
+    }
+
+    // add the keys between lo and hi in the subtree rooted at x
+    // to the queue
+    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
+        if (x == null) return;
+        int cmplo = lo.compareTo(x.key);
+        int cmphi = hi.compareTo(x.key);
+        if (cmplo < 0) keys(x.left, queue, lo, hi);
+        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(x.key);
+        if (cmphi > 0) keys(x.right, queue, lo, hi);
     }
 
     @Override
@@ -203,19 +224,134 @@ public class RedBlackTreeST<Key extends Comparable<Key>, Value>
 
     @Override
     public void delete(Key key) {
+        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        if (!contains(key)) return;
 
+        // if both children of root are black, set root to red
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = delete(root, key);
+        if (!isEmpty()) root.color = BLACK;
+        // assert check();
+    }
+
+    private Node delete(Node h, Key key){
+        // assert get(h, key) != null;
+
+        if (key.compareTo(h.key) < 0)  {
+            if (!isRed(h.left) && !isRed(h.left.left))
+                h = moveRedLeft(h);
+            h.left = delete(h.left, key);
+        } else {
+            if (isRed(h.left))
+                h = rotateRight(h);
+            if (key.compareTo(h.key) == 0 && (h.right == null))
+                return null;
+            if (!isRed(h.right) && !isRed(h.right.left))
+                h = moveRedRight(h);
+            if (key.compareTo(h.key) == 0) {
+                Node x = min(h.right);
+                h.key = x.key;
+                h.val = x.val;
+                // h.val = get(h.right, min(h.right).key);
+                // h.key = min(h.right).key;
+                h.right = deleteMin(h.right);
+            }else
+                h.right = delete(h.right, key);
+        }
+        return balance(h);
     }
 
     @Override
     public void deleteMin() {
-        super.deleteMin();
+        if (isEmpty())
+            return;
+        if (!isRed(root.left) && isRed(root.right))
+            root.color = RED;
+        root = deleteMin(root);
+        if (!isEmpty())
+            root.color = BLACK;
     }
+
+    private Node deleteMin(Node h){
+        if (h.left == null)
+            return null;
+        if (!isRed(h.left) && !isRed(h.left.left))
+            h = moveRedLeft(h);
+        h.left = deleteMin(h.left);
+        return balance(h);
+    }
+
+
+    private Node moveRedLeft(Node h){
+        //假设结点h为红色，h.left和h.left.left都是黑色
+        //将h.left或者h.left的子结点之一有变红
+        flipColors(h);
+        if (isRed(h.right.left)){
+            h.right = rotateRight(h.right);
+            h = rotateLeft(h);
+        }
+        return h;
+    }
+
+    private Node balance(Node h){
+        if (isRed(h.right))
+            h = rotateLeft(h);
+        if (isRed(h.right) && !isRed(h.left))
+            h = rotateLeft(h);
+        if (isRed(h.left) && isRed(h.left.left))
+            h = rotateRight(h);
+        if (isRed(h.left) && isRed(h.right))
+            flipColors(h);
+
+        h.N = size(h.left) + size(h.right) + 1;
+        return h;
+    }
+
 
 
     @Override
     public void deleteMax() {
-        super.deleteMax();
+        if (isEmpty()) throw new NoSuchElementException("BST underflow");
+
+        // if both children of root are black, set root to red
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = deleteMax(root);
+        if (!isEmpty()) root.color = BLACK;
+        // assert check();
     }
+
+    private Node deleteMax(Node h){
+        if (isRed(h.left))
+            h = rotateRight(h);
+
+        if (h.right == null)
+            return null;
+
+        if (!isRed(h.right) && !isRed(h.right.left))
+            h = moveRedRight(h);
+
+        h.right = deleteMax(h.right);
+
+        return balance(h);
+    }
+
+    private Node moveRedRight(Node h){
+        //假设结点h为红色，h.right和h.right.left都是黑色
+        //将h.right或者h.right的子结点之一变红
+        // assert (h != null);
+        // assert isRed(h) && !isRed(h.right) && !isRed(h.right.left);
+        flipColors(h);
+        if (isRed(h.left.left)) {
+            h = rotateRight(h);
+            flipColors(h);
+        }
+        return h;
+    }
+
 
     @Override
     public boolean contains(Key key) {
@@ -306,10 +442,14 @@ public class RedBlackTreeST<Key extends Comparable<Key>, Value>
      * 都变成黑色，
      * 同时将自己的链接变成红色
      * @param h
+     * h must have opposite color of its two children
+     * assert (h != null) && (h.left != null) && (h.right != null);
+     * assert (!isRed(h) &&  isRed(h.left) &&  isRed(h.right))
+     *  || (isRed(h)  && !isRed(h.left) && !isRed(h.right));
      */
     private void flipColors(Node h){
-        h.color = RED;
-        h.left.color = BLACK;
-        h.right.color = BLACK;
+        h.color = !h.color;
+        h.left.color = !h.left.color;
+        h.right.color = !h.right.color;
     }
 }
