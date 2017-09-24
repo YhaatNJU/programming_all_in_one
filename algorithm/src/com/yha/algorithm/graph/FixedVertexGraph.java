@@ -3,22 +3,21 @@ package com.yha.algorithm.graph;
 import com.yha.algorithm.adt.bag.Bag;
 import com.yha.algorithm.adt.bag.LinkedBag;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 /**
  * Author:yha
- * Description:使用Bag实现的固定顶点数的无向图
+ * Description:使用Bag实现的固定顶点数的邻接表无向图
  * Time:2017/9/24 下午3:12.
  * Illustration:
  */
-public class FixedVerticeGraph extends Graph {
+public class FixedVertexGraph extends Graph {
     
     private final int V;  //顶点个数
     private int E; //边的数目
     private Bag<Integer>[] adj; //邻接表
     
-    public FixedVerticeGraph(int vertices) {
+    public FixedVertexGraph(int vertices) {
         V = vertices;
         E = 0;
         adj = (Bag<Integer>[]) new Bag[V]; //创建邻接表
@@ -26,7 +25,7 @@ public class FixedVerticeGraph extends Graph {
             adj[v] = new LinkedBag<>();
     }
     
-    public FixedVerticeGraph(Scanner scanner) {
+    public FixedVertexGraph(Scanner scanner) {
         this(scanner.nextInt()); //读取V并将图初始化
         int E = scanner.nextInt(); // 读取E
         
