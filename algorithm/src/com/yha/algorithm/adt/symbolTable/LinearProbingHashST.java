@@ -1,5 +1,9 @@
 package com.yha.algorithm.adt.symbolTable;
 
+import com.yha.algorithm.adt.queue.Queue;
+
+import java.util.TreeMap;
+
 /**
  * @author yha
  * @decription 基于线性探测的散列无序符号表
@@ -13,6 +17,12 @@ public class LinearProbingHashST<Key, Value> extends SymbolTable<Key, Value> {
     private Value[] vals; //值
 
     public LinearProbingHashST() {
+        keys = (Key[]) new Object[M];
+        vals = (Value[]) new Object[M];
+    }
+
+    public LinearProbingHashST(int m) {
+        M = m;
         keys = (Key[]) new Object[M];
         vals = (Value[]) new Object[M];
     }
@@ -31,9 +41,6 @@ public class LinearProbingHashST<Key, Value> extends SymbolTable<Key, Value> {
                 vals[i] = val;
                 return;
             }
-
-            //todo
-            //全部都不为空，死循环？
         }
         keys[i] = key;
         vals[i] = val;
@@ -42,32 +49,68 @@ public class LinearProbingHashST<Key, Value> extends SymbolTable<Key, Value> {
 
     @Override
     public Value get(Key key) {
+        for (int i = hash(key); keys[i] != null; i = (i + 1) % M){
+            if (keys[i].equals(key))
+                return vals[i];
+        }
         return null;
     }
 
     @Override
     public void delete(Key key) {
-
+        if (!contains(key))
+            return;
+        int i = hash(key);
+        while (!key.equals(keys[i]))
+            i = (i + 1) % M;
+        keys[i] = null;
+        vals[i] = null;
+        i = (i + 1) % M;
+        while (keys[i] != null){
+            Key keyToRedo = keys[i];
+            Value valToRedo = vals[i];
+            keys[i] = null;
+            vals[i] = null;
+            N--;
+            put(keyToRedo, valToRedo);
+            i = (i + 1) % M;
+        }
+        N--;
+        if (N > 0 && N == M/8)
+            resize(M/2);
     }
 
     @Override
     public boolean contains(Key key) {
-        return false;
+        return get(key) != null;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return N == 0;
     }
 
     @Override
     public int size() {
-        return 0;
+        return N;
     }
 
     @Override
     public Iterable<Key> keys() {
-        return null;
+        Queue<Key> queue = new Queue<>();
+        keys(queue);
+        return queue;
+    }
+
+    private void keys(Queue<Key> queue){
+
+        int left = N;
+        for (int i = 0; i < M && left > 0; i ++){
+            if (keys[i] != null){
+                queue.enqueue(keys[i]);
+                left --;
+            }
+        }
     }
 
     /**
@@ -76,22 +119,33 @@ public class LinearProbingHashST<Key, Value> extends SymbolTable<Key, Value> {
      */
     private void resize(int max){
 
-        Key[] tempKeys = (Key[]) new Object[max];
-        Value[] tempVals = (Value[]) new Object[max];
+        LinearProbingHashST<Key, Value> t;
+        t = new LinearProbingHashST<>(max);
 
-        boolean isExpand = max > M;
         for (int i = 0; i < M; i++){
-            if (!isExpand){
-                tempKeys[i%M] = keys[i%M];
-                tempVals[i%M] = vals[i%M];
-            }else {
-                tempKeys[i] = keys[i];
-                tempVals[i] = vals[i];
-            }
+            if (keys[i] != null)
+                t.put(keys[i], vals[i]);
         }
         M = max;
-        keys = tempKeys;
-        vals =tempVals;
+        keys = t.keys;
+        vals = t.vals;
+
+    }
+
+    public static void main(String[] args){
+
+        LinearProbingHashST<Integer, String> hashST = new LinearProbingHashST<>();
+        hashST.put(23, "fadf");
+        hashST.put(124, "qweljqwle");
+        hashST.put(7, "4faoer");
+        hashST.put(91, "eqqwerl");
+        hashST.put(1314, "1234123");
+        hashST.put(1088, "41234asdfl");
+        hashST.show();
+        hashST.delete(7);
+        hashST.show();
+        System.out.println(hashST.get(91));
+
 
     }
 }
