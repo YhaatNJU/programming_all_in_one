@@ -10,7 +10,7 @@ public class RunnableTest implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("create new thread by implementing Runnable");
+        System.out.println("creational new thread by implementing Runnable");
         System.out.println(Thread.currentThread().getName());
     }
 

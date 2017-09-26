@@ -14,7 +14,7 @@ public class CallableTest implements Callable<String>{
 
         CallableTest test = new CallableTest();
         FutureTask<String> task = new FutureTask<>(test);
-        new Thread(task, "create thread with Callable and FutureTask.").start();
+        new Thread(task, "creational thread with Callable and FutureTask.").start();
 
         System.out.println(task.get());
 
