@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.yha.designPattern.create.builder.Waiter</OriginalElement>
+  <nodes>
+    <node x="392.21566925448144" y="51.0">com.yha.designPattern.create.builder.Waiter</node>
+    <node x="126.47880163016748" y="7.444102610030313">com.yha.designPattern.create.builder.Meal</node>
+    <node x="221.78464893723697" y="181.30535184114007">com.yha.designPattern.create.builder.MealBuilder</node>
+    <node x="194.82190656225254" y="381.0038379501725">com.yha.designPattern.create.builder.MealB</node>
+    <node x="418.0" y="323.93164064342943">com.yha.designPattern.create.builder.MealA</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.yha.designPattern.create.builder.Waiter" target="com.yha.designPattern.create.builder.MealBuilder">
+      <point x="4.990755432626848" y="-0.3039082290850672" />
+      <point x="4.990755432626848" y="-0.3039082290850672" />
+    </edge>
+    <edge source="com.yha.designPattern.create.builder.Waiter" target="com.yha.designPattern.create.builder.Meal">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.builder.MealBuilder" target="com.yha.designPattern.create.builder.Meal">
+      <point x="11.53053484027646" y="0.0" />
+      <point x="11.530534840276488" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.builder.Waiter" target="com.yha.designPattern.create.builder.MealB">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.builder.Waiter" target="com.yha.designPattern.create.builder.MealA">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.builder.MealA" target="com.yha.designPattern.create.builder.MealBuilder">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.builder.MealB" target="com.yha.designPattern.create.builder.MealBuilder">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="187.5" y="218.5" />
+  <SelectedNodes>
+    <node>com.yha.designPattern.create.builder.Waiter</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

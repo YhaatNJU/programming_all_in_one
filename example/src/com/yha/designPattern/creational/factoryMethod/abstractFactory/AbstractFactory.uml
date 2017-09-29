@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.yha.designPattern.create.factoryMethod.abstractFactory.MailSenderFactory</OriginalElement>
+  <nodes>
+    <node x="505.426059125527" y="92.43432574430828">com.yha.designPattern.create.factoryMethod.abstractFactory.LetterSender</node>
+    <node x="55.86690017513138" y="486.3509955852333">com.yha.designPattern.create.factoryMethod.abstractFactory.AbstractFactoryTest</node>
+    <node x="318.60603832194874" y="-17.459885583662512">com.yha.designPattern.create.factoryMethod.Sender</node>
+    <node x="-185.70529045980555" y="90.01331237092026">com.yha.designPattern.create.factoryMethod.abstractFactory.LetterSenderFactory</node>
+    <node x="-64.35683244028979" y="175.91456399289314">com.yha.designPattern.create.factoryMethod.abstractFactory.SmsSenderFactory</node>
+    <node x="70.90852216073736" y="252.4019532557345">com.yha.designPattern.create.factoryMethod.abstractFactory.MailSenderFactory</node>
+    <node x="452.2518544869945" y="173.79434512463067">com.yha.designPattern.create.factoryMethod.SmsSender</node>
+    <node x="365.7674929603817" y="244.5168412965598">com.yha.designPattern.create.factoryMethod.MailSender</node>
+    <node x="63.576644676907506" y="-17.997999645919833">com.yha.designPattern.create.factoryMethod.abstractFactory.SenderFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.MailSenderFactory" target="com.yha.designPattern.create.factoryMethod.abstractFactory.SenderFactory">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.SmsSenderFactory" target="com.yha.designPattern.create.factoryMethod.SmsSender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.SmsSenderFactory" target="com.yha.designPattern.create.factoryMethod.Sender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.SenderFactory" target="com.yha.designPattern.create.factoryMethod.Sender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.AbstractFactoryTest" target="com.yha.designPattern.create.factoryMethod.abstractFactory.SmsSenderFactory">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.LetterSenderFactory" target="com.yha.designPattern.create.factoryMethod.Sender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.LetterSenderFactory" target="com.yha.designPattern.create.factoryMethod.abstractFactory.SenderFactory">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.SmsSenderFactory" target="com.yha.designPattern.create.factoryMethod.abstractFactory.SenderFactory">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.LetterSenderFactory" target="com.yha.designPattern.create.factoryMethod.abstractFactory.LetterSender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.MailSender" target="com.yha.designPattern.create.factoryMethod.Sender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.MailSenderFactory" target="com.yha.designPattern.create.factoryMethod.Sender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.AbstractFactoryTest" target="com.yha.designPattern.create.factoryMethod.abstractFactory.LetterSenderFactory">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.LetterSender" target="com.yha.designPattern.create.factoryMethod.Sender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.SmsSender" target="com.yha.designPattern.create.factoryMethod.Sender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.AbstractFactoryTest" target="com.yha.designPattern.create.factoryMethod.abstractFactory.MailSenderFactory">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.MailSenderFactory" target="com.yha.designPattern.create.factoryMethod.MailSender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.yha.designPattern.create.factoryMethod.abstractFactory.AbstractFactoryTest" target="com.yha.designPattern.create.factoryMethod.Sender">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9844827586206896" x="468.644483362522" y="238.30297723292472" />
+  <SelectedNodes>
+    <node>com.yha.designPattern.create.factoryMethod.abstractFactory.MailSenderFactory</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
