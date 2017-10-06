@@ -1,4 +1,4 @@
-package com.yha.designPattern.multiThreads.simpleProducerConsumer;
+package com.yha.example.multiThreads.simpleProducerConsumer;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;

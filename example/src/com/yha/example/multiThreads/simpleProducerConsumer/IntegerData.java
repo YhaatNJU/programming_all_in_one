@@ -1,4 +1,4 @@
-package com.yha.designPattern.multiThreads.simpleProducerConsumer;
+package com.yha.example.multiThreads.simpleProducerConsumer;
 
 /**
  * @author yha
