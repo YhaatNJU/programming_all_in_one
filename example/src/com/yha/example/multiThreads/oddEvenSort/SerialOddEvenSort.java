@@ -1,5 +1,7 @@
 package com.yha.example.multiThreads.oddEvenSort;
 
+import com.yha.util.file.ArrayFileUtil;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -34,6 +36,15 @@ public class SerialOddEvenSort {
 
     }
 
+    public static void main(String[] args){
+        int[] data = new int[100000];
+        ArrayFileUtil.readIntArray(data, "file/numbers/numbers.txt");
+        long start = System.currentTimeMillis();
+        oddEvenSort(data);
+        long end = System.currentTimeMillis();
+        System.out.println("Take time: " + (end - start) / 1000 + "seconds");
+        ArrayFileUtil.writeIntArray(data, "file/numbers/numbers_sorted.txt", false);
+    }
 
 
 }
