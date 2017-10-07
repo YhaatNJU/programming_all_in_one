@@ -11,6 +11,8 @@ import java.util.Scanner;
  **/
 public class  ArrayFileUtil {
 
+    private static final int NUMBERS = 50000000;
+
     /**
      *
      * @param data 待写入的int数组
@@ -61,9 +63,9 @@ public class  ArrayFileUtil {
     
     public static void main(String[] args){
         
-        int[] data = new int[100000];
+        int[] data = new int[NUMBERS];
         Random random = new Random();
-        for (int i = 0; i < 100000; i++){
+        for (int i = 0; i < NUMBERS; i++){
             data[i] = random.nextInt(1000000000);
         }
         writeIntArray(data, "file/numbers/numbers.txt", false);
