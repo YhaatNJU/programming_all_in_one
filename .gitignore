@@ -2,3 +2,6 @@
 */out/production/
 */.idea/
 *.iml
+*/numbers/
+example/file/numbers/numbers.txt
+example/file/numbers/numbers_sorted.txt
