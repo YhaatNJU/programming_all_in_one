@@ -11,7 +11,7 @@ public class Memory {
         System.out.println("Memory startup.");
     }
 
-    public void shotdown(){
+    public void shutdown(){
         System.out.println("Memory shutdown.");
     }
 

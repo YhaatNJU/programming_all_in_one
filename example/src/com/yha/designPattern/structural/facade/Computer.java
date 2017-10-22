@@ -27,9 +27,9 @@ public class Computer {
 
     public void shutdown(){
         System.out.println("Begin to close the computer.");
-        cpu.shotdown();
-        memory.shotdown();
-        disk.shotdown();
+        cpu.shutdown();
+        memory.shutdown();
+        disk.shutdown();
         System.out.println("The computer closed.");
     }
 

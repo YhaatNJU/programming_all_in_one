@@ -36,7 +36,8 @@ public class Stack<Item> implements Iterable<Item>{
     }
 
     public Item pop(){
-
+        if (first == null)
+            throw new NoSuchElementException();
         Item item = first.item;
         first = first.next;
         N--;

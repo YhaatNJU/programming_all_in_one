@@ -16,9 +16,10 @@ public abstract class Bag<Item> implements Iterable<Item> {
     public abstract int size();
     
     public void show(){
+
         for (Item item : this) {
             System.out.println(item);
         }
-    }
+}
     
 }

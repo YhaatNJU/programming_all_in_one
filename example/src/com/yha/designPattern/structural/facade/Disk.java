@@ -11,7 +11,7 @@ public class Disk {
         System.out.println("Disk startup.");
     }
 
-    public void shotdown(){
+    public void shutdown(){
         System.out.println("Disk shutdown.");
     }
 

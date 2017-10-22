@@ -78,7 +78,7 @@ public abstract class OrderedSymbolTable<Key extends Comparable<Key>, Value>
     }
 
     /**
-     * [low..high]直接的所有键，已排序
+     * [low..high]之间的所有键，已排序
      * @param low
      * @param high
      * @return

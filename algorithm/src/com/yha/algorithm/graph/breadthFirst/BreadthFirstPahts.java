@@ -31,7 +31,7 @@ public class BreadthFirstPahts extends Paths {
         while (!queue.isEmpty()){
             int v = queue.dequeue(); //从队列中取出一个顶点
             for (int w : G.adj(v)){
-                if (!marked[w]){ //对于每个为被标记的相邻顶点
+                if (!marked[w]){ //对于每个未被标记的相邻顶点
                     edgeTo[w] = v; //保存最短路径的最后一条边
                     marked[w] = true; //标记它，因为最短路径已知
                     queue.enqueue(w); //将它添加到队列中

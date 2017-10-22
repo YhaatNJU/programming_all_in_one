@@ -24,7 +24,8 @@ public class SortTest {
 
         Integer[] b = {7, 9, 11, 13, 8, 1, 3, 5};
 
-        QuickSort.sort(b);
+        //QuickSort.sort(b);
+        BubbleSort.sort(b);
         Sort.show(b);
 
 

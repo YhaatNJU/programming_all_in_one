@@ -11,7 +11,7 @@ public class CPU {
         System.out.println("CPU startup.");
     }
 
-    public void shotdown(){
+    public void shutdown(){
         System.out.println("CPU shutdown.");
     }
 
