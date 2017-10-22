@@ -1,7 +1,5 @@
 package com.yha.algorithm.adt.bag;
 
-import com.yha.algorithm.adt.queue.Queue;
-
 import java.util.Iterator;
 
 /**

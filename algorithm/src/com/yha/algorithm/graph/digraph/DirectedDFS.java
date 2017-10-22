@@ -1,9 +1,5 @@
 package com.yha.algorithm.graph.digraph;
 
-import com.yha.algorithm.adt.bag.Bag;
-import com.yha.algorithm.adt.bag.LinkedBag;
-import com.yha.algorithm.graph.Graph;
-
 /**
  * @author www
  * @description 有向深度优先可达性搜索类

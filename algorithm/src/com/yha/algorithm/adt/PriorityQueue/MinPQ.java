@@ -23,9 +23,7 @@ public class MinPQ<Key extends Comparable<Key>> {
     }
 
     public void insert(Key v){
-        if (++N > pq.length-1)
-            return;
-        pq[N] = v;
+        pq[++N] = v;
         swim(N);
     }
 

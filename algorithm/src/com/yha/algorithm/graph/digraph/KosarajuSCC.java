@@ -1,7 +1,5 @@
 package com.yha.algorithm.graph.digraph;
 
-import com.yha.algorithm.graph.CC;
-
 /**
  * Author:yha
  * Description:使用Kosaraju算法计算有向图的强连通分量

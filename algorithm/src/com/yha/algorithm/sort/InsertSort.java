@@ -1,7 +1,5 @@
 package com.yha.algorithm.sort;
 
-import java.util.Comparator;
-
 /**
  * @author yha
  * @decription 插入排序
