@@ -3,7 +3,7 @@
 */.idea/
 *.iml
 *.ini
-*/target/
+*/target/**
 */numbers/
 example/file/numbers/numbers.txt
 example/file/numbers/numbers_sorted.txt
