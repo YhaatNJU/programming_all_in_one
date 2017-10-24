@@ -28,15 +28,22 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
     }
 
     public boolean contains(int k){
+        if (k < 1 || k >= keys.length)
+            throw new IllegalArgumentException();
         return qp[k] != -1;
     }
 
     public void insert(int k, Key key){
+        if (k < 1 || k >= keys.length)
+            throw new IllegalArgumentException();
+        if ((N + 1) >= keys.length)
+            throw new Error("There is no space for new element.");
         N++;
         qp[k] = N;
         pq[N] = k;
         keys[k] = key;
         swim(N);
+        show();
 
     }
 
@@ -45,6 +52,8 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
     }
 
     public void change(int k, Key key){
+        if (k < 1 || k >= keys.length)
+            throw new IllegalArgumentException();
         keys[k] = key;
         swim(qp[k]);
         sink(qp[k]);
@@ -56,6 +65,8 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
     }
 
     public int delMin(){
+        if (isEmpty())
+            throw new Error("There is no element.");
         int indexOfMin = pq[1];
         exchange(1, N--);
         sink(1);
@@ -91,7 +102,7 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
         }
     }
 
-    public void exchange(int i, int j){
+    private void exchange(int i, int j){
         int temp = pq[j];
         pq[j] = pq[i];
         pq[i] = temp;
@@ -101,7 +112,7 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
         qp[pq[i]] = temp;
     }
 
-    public boolean large(int i, int j){
+    private boolean large(int i, int j){
         return keys[i].compareTo(keys[j]) > 0;
     }
 
@@ -122,11 +133,15 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
         pq.insert(1,4);
         pq.insert(2, 3);
         pq.insert(3, 2);
-        pq.insert(4,7);
+        pq.insert(4,1);
         pq.insert(5, 5);
         pq.show();
         pq.delMin();
         pq.insert(5, 6);
+        pq.show();
+        pq.delMin();
+        pq.show();
+        pq.delMin();
         pq.show();
     }
 
