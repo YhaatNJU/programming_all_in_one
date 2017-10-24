@@ -2,7 +2,8 @@
 */out/production/
 */.idea/*
 *.iml
-*/target/*.*
+*.ini
+*/target/
 */numbers/
 example/file/numbers/numbers.txt
 example/file/numbers/numbers_sorted.txt
