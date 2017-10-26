@@ -26,6 +26,10 @@ public class EdgeWeightGraph {
     public int V(){
         return V;
     }
+
+    public int E(){
+        return E;
+    }
     
     public void addEdge(Edge e){
         int v = e.either(), w = e.other(v);
