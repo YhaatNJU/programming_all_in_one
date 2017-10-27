@@ -27,7 +27,7 @@ public class MSTTest {
         G.addEdge(new Edge(6, 0, .58));
         G.addEdge(new Edge(6, 4, .93));
 
-        LazyPrimMST mst = new LazyPrimMST(G);
+        PrimMST mst = new PrimMST(G);
         mst.edges().forEach(e -> {
             int v = e.either();
             int w = e.other(v);
