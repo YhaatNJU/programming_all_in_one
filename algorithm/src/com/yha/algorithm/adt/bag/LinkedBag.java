@@ -64,6 +64,20 @@ public class LinkedBag<Item> extends Bag<Item> {
             return item;
         }
     }
+
+
+    public boolean contains(Item item){
+
+        Node current = first;
+        while (current != null){
+            if (current.item.equals(item))
+                return true;
+
+            current = current.next;
+        }
+
+        return false;
+    }
     
     
     public static void main(String[] args){

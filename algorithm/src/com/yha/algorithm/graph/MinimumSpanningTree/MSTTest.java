@@ -27,7 +27,7 @@ public class MSTTest {
         G.addEdge(new Edge(6, 0, .58));
         G.addEdge(new Edge(6, 4, .93));
 
-        PrimMST mst = new PrimMST(G);
+        AbstractMST mst = new KruskalMST(G);
         mst.edges().forEach(e -> {
             int v = e.either();
             int w = e.other(v);

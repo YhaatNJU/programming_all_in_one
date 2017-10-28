@@ -8,18 +8,20 @@ package com.yha.algorithm.adt.bag;
  * Illustration:
  */
 public abstract class Bag<Item> implements Iterable<Item> {
-    
+
     public abstract void add(Item item);
-    
+
     public abstract boolean isEmpty();
-    
+
     public abstract int size();
-    
-    public void show(){
+
+    public void show() {
 
         for (Item item : this) {
             System.out.println(item);
         }
-}
-    
+    }
+
+    public abstract boolean contains(Item item);
+
 }

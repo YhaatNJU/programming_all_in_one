@@ -2,7 +2,7 @@ package com.yha.algorithm.adt.priorityQueue;
 
 /**
  * @author yha
- * @decription 最大索引优先队列
+ * @decription 最大索引优先队列，关联的索引从0开始
  * @create 2017-10-26 23:08
  **/
 public class IndexMaxPQ<Key extends Comparable<Key>> {
@@ -11,12 +11,14 @@ public class IndexMaxPQ<Key extends Comparable<Key>> {
     private int[] pq; // 索引二叉堆，由1开始
     private int[] qp; // 逆序：qp[pq[i]] = pq[qp[i]] = i;
     private Key[] keys; // 有优先级之分的元素
+    private final int capacity; //容量
 
-    public IndexMaxPQ(int maxN){
-        keys = (Key[]) new Comparable[maxN + 1];
-        pq = new int[maxN + 1];
-        qp = new int[maxN + 1];
-        for (int i = 0; i <= maxN; i++)
+    public IndexMaxPQ(int capacity){
+        this.capacity = capacity;
+        keys = (Key[]) new Comparable[capacity + 1];
+        pq = new int[capacity + 1];
+        qp = new int[capacity + 1];
+        for (int i = 0; i <= capacity; i++)
             qp[i] = -1;
     }
 
@@ -24,14 +26,21 @@ public class IndexMaxPQ<Key extends Comparable<Key>> {
         return N == 0;
     }
 
+    /**
+     * 队列指定位置是否有元素
+     * @param k 元素位置，从0开始
+     * @return
+     */
     public boolean contains(int k){
-        if (k < 1 || k >= keys.length)
+        k++; //使得关联的整数可以为0
+        if (k < 1 || k > capacity)
             throw new IllegalArgumentException();
         return qp[k] != -1;
     }
 
     public void change(int k, Key key){
-        if (k < 1 || k >= keys.length)
+        k++; //使得关联的整数可以为0
+        if (k < 1 || k > capacity)
             throw new IllegalArgumentException();
         keys[k] = key;
         swim(qp[k]);
@@ -39,16 +48,18 @@ public class IndexMaxPQ<Key extends Comparable<Key>> {
 
     }
 
+    /**
+     * 向队列的指定位置插入元素
+     * @param k 位置，从0开始
+     * @param key 元素
+     */
     public void insert(int k, Key key){
-        if (k < 1 || k >= keys.length)
-            throw new IllegalArgumentException();
-        if ((N + 1) >= keys.length)
-            throw new Error("There is no space for new element.");
+
         if (contains(k)){
             change(k, key);
             return;
         }
-
+        k++; //使得关联的整数可以为0
         N++;
         qp[k] = N;
         pq[N] = k;
@@ -78,6 +89,8 @@ public class IndexMaxPQ<Key extends Comparable<Key>> {
         pq[N] = -1;
         N--;
         sink(1);
+
+        indexOfMin--; //使得关联的整数可以为0
 
         return indexOfMin;
     }
@@ -123,8 +136,8 @@ public class IndexMaxPQ<Key extends Comparable<Key>> {
         pq[j] = pq[i];
         pq[i] = temp;
 
-        qp[pq[j]] = i;
-        qp[pq[i]] = j;
+        qp[pq[i]] = i;
+        qp[pq[j]] = j;
     }
 
     public static void main(String[] args){
@@ -134,7 +147,7 @@ public class IndexMaxPQ<Key extends Comparable<Key>> {
         int size = 5;
         IndexMaxPQ<Integer> pq = new IndexMaxPQ<>(size);
         for (int i = 0; i < data.length; i++){
-            pq.insert(i >= size ? pq.delMax() : i + 1, data[i]);
+            pq.insert(i >= size ? pq.delMax() : i, data[i]);
         }
 
         while (!pq.isEmpty()){

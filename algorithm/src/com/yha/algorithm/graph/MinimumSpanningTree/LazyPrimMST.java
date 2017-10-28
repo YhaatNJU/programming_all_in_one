@@ -8,7 +8,7 @@ import com.yha.algorithm.adt.queue.Queue;
  * @decription 最小生成树的Prim算法的延时实现
  * @create 2017-10-22 21:11
  **/
-public class LazyPrimMST {
+public class LazyPrimMST extends AbstractMST{
 
     private boolean[] marked; // 最小生成树的顶点
     private Queue<Edge> mst; // 最小生成树的边

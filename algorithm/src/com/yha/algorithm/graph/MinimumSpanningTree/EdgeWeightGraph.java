@@ -2,6 +2,10 @@ package com.yha.algorithm.graph.MinimumSpanningTree;
 
 import com.yha.algorithm.adt.bag.Bag;
 import com.yha.algorithm.adt.bag.LinkedBag;
+import com.yha.algorithm.adt.queue.Queue;
+import com.yha.algorithm.adt.stack.Stack;
+import com.yha.algorithm.adt.symbolTable.BinarySearchTreeST;
+import com.yha.algorithm.adt.symbolTable.SymbolTable;
 
 /**
  * Author:yha
@@ -43,10 +47,17 @@ public class EdgeWeightGraph {
     }
     
     public Iterable<Edge> edges(){
-        Bag<Edge> allEdges = new LinkedBag<>();
+        Bag<Edge> edges = new LinkedBag<>();
         for (int i = 0; i < V; i++){
-            adj[i].forEach(allEdges::add);
+            adj(i).forEach(e -> {
+                if (!e.isVisited()){
+                    edges.add(e);
+                    e.setVisited(true);
+                }
+                else
+                    e.setVisited(false);
+            });
         }
-        return allEdges;
+        return edges;
     }
 }

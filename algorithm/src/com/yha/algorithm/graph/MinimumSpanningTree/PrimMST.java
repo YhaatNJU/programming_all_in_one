@@ -1,5 +1,7 @@
 package com.yha.algorithm.graph.MinimumSpanningTree;
 
+import com.yha.algorithm.adt.bag.Bag;
+import com.yha.algorithm.adt.bag.LinkedBag;
 import com.yha.algorithm.adt.priorityQueue.IndexMiniPQ;
 import com.yha.algorithm.adt.queue.Queue;
 
@@ -10,7 +12,7 @@ import java.security.Key;
  * @Description: 最小生成树的Prim算法（及时实现）
  * @create 2017/10/27
  */
-public class PrimMST {
+public class PrimMST extends AbstractMST{
 
     private Edge[] edgeTo; //距离树最近的边
     private double[] distTo; //distTo[w]=edgeTo[w].weight()
@@ -22,10 +24,13 @@ public class PrimMST {
         edgeTo = new Edge[G.V()];
         distTo = new double[G.V()];
         marked = new boolean[G.V()];
+        for (int v = 0; v < G.V(); v++){
+            distTo[v] = Double.POSITIVE_INFINITY;
+        }
         pq = new IndexMiniPQ<>(G.V());
 
         distTo[0] = 0.0;
-        pq.insert(0 + 1, 0.0); //用顶点0和权重0初始化pq
+        pq.insert(0, 0.0); //用顶点0和权重0初始化pq
         while (!pq.isEmpty()){
             visit(G, pq.delMin());
         }
@@ -46,19 +51,20 @@ public class PrimMST {
                 edgeTo[w] = e;
                 distTo[w] = e.weight();
                 if (pq.contains(w))
-                    pq.change(w + 1, distTo[w]);
+                    pq.change(w, distTo[w]);
                 else
-                    pq.insert(w + 1, distTo[w]);
+                    pq.insert(w, distTo[w]);
             }
         }
+        weight += distTo[v];
     }
 
     public Iterable<Edge> edges(){
-        Queue<Edge> queue = new Queue<>();
-        for (Edge e : edgeTo)
-            queue.enqueue(e);
+        Bag<Edge> mst = new LinkedBag<>();
+        for (int v = 1; v < edgeTo.length; v++)
+            mst.add(edgeTo[v]);
 
-        return queue;
+        return mst;
     }
 
     public double weight(){

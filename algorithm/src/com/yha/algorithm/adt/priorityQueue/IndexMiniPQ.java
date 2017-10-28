@@ -4,7 +4,7 @@ import com.sun.org.apache.regexp.internal.RE;
 
 /**
  * @author yha
- * @decription 最小索引优先队列
+ * @decription 最小索引优先队列，关联的索引从0开始
  * @create 2017-09-23 22:57
  **/
 public class IndexMiniPQ<Key extends Comparable<Key>>{
@@ -13,12 +13,14 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
     private int[] pq; // 索引二叉堆，由1开始
     private int[] qp; // 逆序：qp[pq[i]] = pq[qp[i]] = i;
     private Key[] keys; // 有优先级之分的元素
+    private final int capacity; //容量
 
-    public IndexMiniPQ(int maxN){
-        keys = (Key[]) new Comparable[maxN + 1];
-        pq = new int[maxN + 1];
-        qp = new int[maxN + 1];
-        for (int i = 0; i <= maxN; i++)
+    public IndexMiniPQ(int capacity){
+        this.capacity = capacity;
+        keys = (Key[]) new Comparable[capacity + 1];
+        pq = new int[capacity + 1];
+        qp = new int[capacity + 1];
+        for (int i = 0; i <= capacity; i++)
             qp[i] = -1;
     }
 
@@ -27,21 +29,31 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
         return N == 0;
     }
 
+    /**
+     * 队列是否包含元素，k从0开始
+     * @param k 元素位置
+     * @return
+     */
     public boolean contains(int k){
-        if (k < 1 || k >= keys.length)
+        k++; //使得关联的整数可以为0
+        if (k < 1 || k > capacity)
             throw new IllegalArgumentException();
         return qp[k] != -1;
     }
 
+    /**
+     * 将元素插入队列中的指定位置，k从0开始
+     * @param k 位置
+     * @param key 元素
+     */
     public void insert(int k, Key key){
-        if (k < 1 || k >= keys.length)
-            throw new IllegalArgumentException();
-        if ((N + 1) >= keys.length)
-            throw new Error("There is no space for new element.");
+
         if (contains(k)){
             change(k, key);
             return;
         }
+
+        k++; //使得关联的整数可以为0
 
         N++;
         qp[k] = N;
@@ -56,8 +68,14 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
         return pq[1];
     }
 
+    /**
+     * 修改队列中指定位置的元素
+     * @param k 位置，从0开始
+     * @param key 元素
+     */
     public void change(int k, Key key){
-        if (k < 1 || k >= keys.length)
+        k++; //使得关联的整数可以为0
+        if (k < 1 || k > capacity)
             throw new IllegalArgumentException();
         keys[k] = key;
         swim(qp[k]);
@@ -81,6 +99,8 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
         pq[N] = -1;
         N--;
         sink(1);
+
+        indexOfMin--; //使得关联的整数可以为0
 
         return indexOfMin;
     }
@@ -117,8 +137,8 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
         pq[j] = pq[i];
         pq[i] = temp;
 
-        qp[pq[j]] = i;
-        qp[pq[i]] = j;
+        qp[pq[i]] = i;
+        qp[pq[j]] = j;
     }
 
     private boolean large(int i, int j){
@@ -145,8 +165,10 @@ public class IndexMiniPQ<Key extends Comparable<Key>>{
         int size = 5;
         IndexMiniPQ<Integer> pq = new IndexMiniPQ<>(size);
         for (int i = 0; i < data.length; i++){
-            pq.insert(i >= size ? pq.delMin() : i + 1, data[i]);
+            pq.insert(i >= size ? pq.delMin() : i, data[i]);
         }
+
+        pq.show();
 
         while (!pq.isEmpty()){
             System.out.print(pq.min() + " ");
