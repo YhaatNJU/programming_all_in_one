@@ -10,13 +10,13 @@ import com.yha.algorithm.adt.stack.Stack;
 public class EdgeDirectedCycle {
 
     private boolean[] marked;
-    private int[] edgeTo;
-    private Stack<Integer> cycle; //有向环中的所有顶点（如果存在）
+    private DirectedEdge[] edgeTo;
+    private Stack<DirectedEdge> cycle; //有向环中的所有边（如果存在）
     private boolean[] onStack; //递归调用的栈上的所有顶点
 
     public EdgeDirectedCycle(EdgeWeightedDigraph G) {
         onStack = new boolean[G.V()];
-        edgeTo = new int[G.V()];
+        edgeTo = new DirectedEdge[G.V()];
         marked = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
             if (!marked[v])
@@ -31,15 +31,26 @@ public class EdgeDirectedCycle {
             if (this.hasCycle())
                 return;
             else if (!marked[w]){
-                edgeTo[w] = v;
+                edgeTo[w] = e;
                 dfs(G, w);
             }
             else if (onStack[w]){
                 cycle = new Stack<>();
-                for (int x = v; x != w; x = edgeTo[x])
+                /*for (DirectedEdge x = v; x != w; x = edgeTo[x])
                     cycle.push(x);
                 cycle.push(w);
-                cycle.push(v);
+                cycle.push(v);*/
+                for (DirectedEdge edge = edgeTo[v];edge != null && edge.to() != w; edge = edgeTo[edge.from()])
+                    cycle.push(edge);
+                DirectedEdge edge = null;
+                for (DirectedEdge e2 : G.adj(v)){
+                    if (e2.to() == w){
+                        edge = e2;
+                        break;
+                    }
+                }
+                cycle.push(edge);
+
             }
         }
 
@@ -50,8 +61,9 @@ public class EdgeDirectedCycle {
         return cycle != null;
     }
 
-    public Iterable<Integer> cycle(){
+    public Iterable<DirectedEdge> cycle(){
         return cycle;
     }
+
 
 }

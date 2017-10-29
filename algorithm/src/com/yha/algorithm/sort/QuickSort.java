@@ -22,7 +22,7 @@ public class QuickSort extends Sort{
         if (high <= low)
             return;
         int j = partition(a, low, high); //切分数组
-        sort(a, low, j-1); //将做半边排序
+        sort(a, low, j-1); //将左半边排序
         sort(a, j+1, high); //将右半边排序
     }
     

@@ -18,7 +18,7 @@ public class MergeSort extends Sort {
     }
     
     /**
-     * 原地归并排序
+     * 原地归并
      * @param a
      * @param low
      * @param mid

@@ -20,7 +20,8 @@ public class SortTest {
         //ShellSort.sort(a);
         
         //QuickSort.sort(a);
-        //HeapSort.sort(a);
+        HeapSort.sort(a);
+        Sort.show(a);
 
         Integer[] b = {7, 9, 11, 13, 8, 1, 3, 5};
 
