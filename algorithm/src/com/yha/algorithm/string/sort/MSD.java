@@ -10,6 +10,11 @@ import java.util.Arrays;
 public class MSD {
 
     /**
+     * 可以通过一个构造函数 传入一个字母表，对小型字母表非常有用
+     * 相应的改变R和charAt()方法即可
+     */
+
+    /**
      * 基数
      */
     private static int R = 256; //基数
@@ -83,31 +88,34 @@ public class MSD {
             sort(a, low + count[r], low + count[r+1] - 1, d+1);
     }
 
+
     /**
-     * 为字符串数组定制的使用字符串特定位置字符进行比较的插入排序
-     * @param a 待排序的字符串数组
-     * @param low 待排序的字符串开始下标
-     * @param high 待排序的字符串结束下标
-     * @param d 用来比较的字符串中字符的位置
+     * 对包含d在内的后面的子字符串排序
+     * @param a 待排序字符串数组
+     * @param low 待排序字符串起始下标
+     * @param high 结束下标
+     * @param d 比较子字符串开始位置
      */
-    private static void insertSort(String[] a, int low, int high, int d){
-        if (low >= high)
-            return;
-        boolean end = d < a[low].length() ? false : true;
+    public static void insertSort(String[]a ,int low, int high, int d){
+        //对包含d在内的后面的子字符串排序，从a[low]到a[high];
         for (int i = low + 1; i <= high; i++){
-            int j = i;
             String temp = a[i];
-            if (d < a[i].length()){
-                end = false;
-            }
-            int tempIndex = charAt(temp, d);
-            for (; j > low && tempIndex < charAt(a[j-1],d); j--)
-                a[j] = a[j - 1];
+            int j = i;
+            for (; j > low && less(temp, a[j-1], d); j--)
+                a[j] = a[j-1];
             a[j] = temp;
         }
-        if (!end)
-            insertSort(a, low, high, d+1);
+    }
 
+    /**
+     * 从特定位置以后比较两个字符串的大小（比较两个字符串的子字符串的大小）
+     * @param v 待比较字符
+     * @param w 另一个待比较字符串
+     * @param d 用来比较的子字符串开始下标
+     * @return
+     */
+    private static boolean less(String v, String w, int d){
+        return v.substring(d).compareTo(w.substring(d)) < 0;
     }
 
     public static void main(String[] args){
