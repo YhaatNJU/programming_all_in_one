@@ -56,8 +56,8 @@ public class ThreeST<Value> extends StringST<Value> {
 
     @Override
     public void put(String key, Value val) {
-        if (key == null)
-            throw new IllegalArgumentException("key不能为空");
+        if (key == null || key.length() == 0)
+            throw new IllegalArgumentException("key不能为null或长度为0");
         root = put(root, key, val, 0);
     }
 
@@ -74,7 +74,8 @@ public class ThreeST<Value> extends StringST<Value> {
         if (x == null){
             x = new Node();
             x.c = c;
-        }else if (c < x.c)
+        }
+        if (c < x.c)
             x.left = put(x.left, key, val, d);
         else if (c > x.c)
             x.right = put(x.right, key, val, d);
@@ -94,7 +95,7 @@ public class ThreeST<Value> extends StringST<Value> {
 
     @Override
     public Value get(String key) {
-        if (key == null)
+        if (key == null || key.length() == 0)
             return null;
         Node x = get(root, key, 0);
         if (x == null)
@@ -139,7 +140,7 @@ public class ThreeST<Value> extends StringST<Value> {
         else if (c > x.c)
             x.right = delete(x.right, key, d);
         else {
-            if (d < key.length())
+            if (d < key.length() - 1)
                 x.mid = delete(x.mid, key, d+1);
             else {
                 if (x.val != null){
@@ -149,11 +150,18 @@ public class ThreeST<Value> extends StringST<Value> {
                         x.mid = deleteMin(x.mid);
                         x.left = t.left;
                         x.right = t.right;
-                    }else {
+                    }else if (x.right != null){
                         x = min(x.right);
                         x.right = deleteMin(x.right);
                         x.left = t.left;
                         x.mid = t.mid;
+                    }else if (x.left != null){
+                        x = min(x.left);
+                        x.left = deleteMin(x.left);
+                        x.mid = t.mid;
+                        x.right = t.right;
+                    }else {
+                        x = null;
                     }
                     N--;
                 }
@@ -201,8 +209,10 @@ public class ThreeST<Value> extends StringST<Value> {
     public String longestPrefixOf(String s) {
         if (s == null)
             throw new IllegalArgumentException("s不能为空");
+        if (s.length() == 0)
+            return null;
         int length = search(root, s, 0, 0);
-        return s.substring(0, length);
+        return s.substring(0, length + 1);
     }
 
     /**
@@ -246,7 +256,7 @@ public class ThreeST<Value> extends StringST<Value> {
     /**
      * 收集以x为根结点的子单词查找树中的有效结点（val != null）
      * @param x 当前子单词查找树的根结点
-     * @param pre 到当前根结点的字符串
+     * @param prefix 到当前根结点的字符串
      * @param q 用来保存收集到的字符串
      */
     private void collect(Node x, StringBuilder prefix, Queue<String> q){
@@ -265,7 +275,7 @@ public class ThreeST<Value> extends StringST<Value> {
         if (pat == null)
             throw new IllegalArgumentException("匹配字符串pat不能为null");
         Queue<String> q = new Queue<>();
-        collect(root, "", pat, q);
+        collect(root, new StringBuilder(), 0, pat, q);
         return q;
     }
 
@@ -276,27 +286,22 @@ public class ThreeST<Value> extends StringST<Value> {
      * @param pat 用来匹配的字符串
      * @param q 用来保存收集到的字符串
      */
-    private void collect(Node x, String pre, String pat, Queue<String> q){
-        int d = pre.length();
+    private void collect(Node x, StringBuilder prefix, int d, String pat, Queue<String> q){
         if (x == null)
             return;
-        if (d == pat.length() && x.val != null)
-            q.enqueue(pre);
-        if (d == pat.length())
-            return;
-        char next = pat.charAt(d);
-        if (next == '.'){
-            collect(x.left, pre + x.c, pat, q);
-            collect(x.mid, pre + x.c, pat, q);
-            collect(x.right, pre + x.c, pat,q);
-        }else {
-            if (next < x.c)
-                collect(x.left, pre, pat, q);
-            else if (next > x.c)
-                collect(x.right, pre, pat, q);
-            else
-                collect(x.mid, pre + x.c, pat, q);
+        char c = pat.charAt(d);
+        if (c == '.' || c < x.c)
+            collect(x.left, prefix, d, pat, q);
+        if (c == '.' || c == x.c){
+            if (d == pat.length() - 1 && x.val != null)
+                q.enqueue(prefix.toString() + x.c);
+            if (d < pat.length() - 1){
+                collect(x.mid,prefix.append(x.c), d+1, pat, q);
+                prefix.deleteCharAt(prefix.length() - 1);
+            }
         }
+        if (c == '.' || c > x.c)
+            collect(x.right, prefix, d, pat, q);
     }
 
     @Override
@@ -340,12 +345,16 @@ public class ThreeST<Value> extends StringST<Value> {
         st.keys().forEach(System.out::println);
         System.out.println("keysWithPrefix sea:");
         st.keysWithPrefix("sea").forEach(System.out::println);
-        System.out.println("keysThatMatch seash.:");
-        st.keysThatMatch("seash.").forEach(System.out::println);
+        System.out.println("keysThatMatch seash.lls:");
+        st.keysThatMatch("seash.lls").forEach(System.out::println);
         System.out.println("longestPrefixOf seashare:");
         System.out.println(st.longestPrefixOf("seasha"));
         System.out.println(st.size());
-        st.delete("surelya");
+        st.delete("surely");
         System.out.println(st.size());
+        System.out.println(st.contains("surely"));
+        st.delete("seashells");
+        System.out.println(st.size());
+        System.out.println(st.contains("seashells"));
     }
 }

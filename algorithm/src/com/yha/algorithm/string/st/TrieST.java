@@ -275,8 +275,8 @@ public class TrieST<Value> extends StringST<Value>{
         st.keys().forEach(System.out::println);
         System.out.println("keysWithPrefix sea:");
         st.keysWithPrefix("sea").forEach(System.out::println);
-        System.out.println("keysThatMatch seash.:");
-        st.keysThatMatch("seash.").forEach(System.out::println);
+        System.out.println("keysThatMatch seash.lls:");
+        st.keysThatMatch("seash.lls").forEach(System.out::println);
         System.out.println("longestPrefixOf seashare:");
         System.out.println(st.longestPrefixOf("seasha"));
         System.out.println(st.size());
