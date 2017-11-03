@@ -1,7 +1,5 @@
 package com.yha.algorithm.adt.priorityQueue;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 /**
  * @author yha
  * @decription 最小索引优先队列，关联的索引从0开始
