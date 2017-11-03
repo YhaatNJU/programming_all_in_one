@@ -131,6 +131,13 @@ public class ThreeST<Value> extends StringST<Value> {
         root = delete(root, key, 0);
     }
 
+    /**
+     * 采用与二叉树类似的删除操作
+     * @param x
+     * @param key
+     * @param d
+     * @return
+     */
     private Node delete(Node x, String key, int d){
         if (x == null)
             return null;
@@ -172,6 +179,11 @@ public class ThreeST<Value> extends StringST<Value> {
         return x;
     }
 
+    /**
+     * 返回以x为根结点的子树的最小结点
+     * @param x
+     * @return
+     */
     private Node min(Node x){
         if (x.left == null){
             if (x.mid == null)
@@ -183,6 +195,11 @@ public class ThreeST<Value> extends StringST<Value> {
 
     }
 
+    /**
+     * 删除以x为根结点的子树的最小结点
+     * @param x
+     * @return
+     */
     private Node deleteMin(Node x){
         if (x.left == null){
             if (x.mid == null)
@@ -256,7 +273,7 @@ public class ThreeST<Value> extends StringST<Value> {
     /**
      * 收集以x为根结点的子单词查找树中的有效结点（val != null）
      * @param x 当前子单词查找树的根结点
-     * @param prefix 到当前根结点的字符串
+     * @param prefix 到当前根结点之前的字符串
      * @param q 用来保存收集到的字符串
      */
     private void collect(Node x, StringBuilder prefix, Queue<String> q){
@@ -282,7 +299,8 @@ public class ThreeST<Value> extends StringST<Value> {
     /**
      * 收集以x为根结点的子单词查找树中的有效结点（val != null）
      * @param x 当前子单词查找树的根结点
-     * @param pre 到当前根结点的字符串
+     * @param prefix 到当前根结点之前的字符串
+     * @param d 当前结点在形成字符串的长度
      * @param pat 用来匹配的字符串
      * @param q 用来保存收集到的字符串
      */
