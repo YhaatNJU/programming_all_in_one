@@ -1,6 +1,8 @@
 package com.yha.algorithm.adt.bag;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Author:yangsanyang
@@ -81,6 +83,7 @@ public class LinkedBag<Item> extends Bag<Item> {
     
     
     public static void main(String[] args){
+
     
         Bag<Integer> bag = new LinkedBag<>();
         bag.add(1);

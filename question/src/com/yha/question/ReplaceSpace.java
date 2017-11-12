@@ -1,5 +1,6 @@
 package com.yha.question;
 
+<<<<<<< HEAD
 import java.util.Arrays;
 
 /**
@@ -43,4 +44,12 @@ public class ReplaceSpace {
 
         return String.valueOf(newChars);
     }
+=======
+/**
+ * @author yha
+ * @Description 请实现一个函数，将一个字符串中的空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+ * @date 2017/11/9
+ */
+public class ReplaceSpace {
+
 }
