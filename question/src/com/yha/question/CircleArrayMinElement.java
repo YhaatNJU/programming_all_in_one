@@ -19,19 +19,25 @@ public class CircleArrayMinElement {
 
 
     private int min(int[] a, int start, int end){
-        if (start == end)
-            return a[start];
+        if (end - start <= 1){
+            if (a[start] < a[end])
+                return a[start];
+            else
+                return a[end];
+        }
         int mid = start + (end-start)/2;
-        if (a[start] <= a[mid] && a[start] <= a[end])
-            return min(a, start, mid);
-        else if (a[mid] <= a[start] && a[mid] <= a[end])
-            return min(a, start, mid);
-        else
+        if (a[start] <= a[mid] && a[start] < a[end])
+            return a[start];
+        else if (a[end] <= a[start] && a[end] <= a[mid])
             return min(a, mid, end);
+        else {
+            return min(a, start, mid);
+        }
+
     }
 
     public static void main(String[] args){
-        int[] array = {6,1,2,3,4,5};
+        int[] array = {10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29};
         CircleArrayMinElement min = new CircleArrayMinElement();
         System.out.println(min.minNumberInRotateArray(array));
     }

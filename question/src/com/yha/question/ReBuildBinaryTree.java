@@ -49,6 +49,16 @@ public class ReBuildBinaryTree {
         root.right = reBuild(pre, pS + subTrees + 1, pE, in, iS + subTrees + 1, iE);
         return root;
     }
+
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
 }
 
 
@@ -56,13 +66,5 @@ public class ReBuildBinaryTree {
  * Definition for binary tree
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
 
-    TreeNode(int x) {
-        val = x;
-    }
-}
 
