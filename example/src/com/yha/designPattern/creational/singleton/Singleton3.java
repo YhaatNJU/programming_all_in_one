@@ -6,4 +6,13 @@ package com.yha.designPattern.creational.singleton;
  * @date 2017/11/9
  */
 public class Singleton3 {
+
+    public static Singleton3 getInstance(){
+        return SingleTonHolder.singleton;
+    }
+
+    private static class SingleTonHolder{
+        private static Singleton3 singleton = new Singleton3();
+
+    }
 }
